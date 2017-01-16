@@ -5,7 +5,11 @@ var config = {
     storageBucket: "trainjjw.appspot.com",
     messagingSenderId: "765865960520"
 };
+
+
 firebase.initializeApp(config);
+
+
 
 // Get a reference to the database service
 var database = firebase.database();
@@ -16,6 +20,13 @@ var destination = "";
 var frequency = "";
 var arrivalTime = "";
 var minutesAway = "";
+function showTime () {
+	 var thetime = moment().format('MMMM Do YYYY, h:mm:ss a');
+    $("#headerspan").html(thetime);
+}
+setInterval(showTime, 1000);
+ var thetime = moment().format('MMMM Do YYYY, h:mm:ss a');
+    console.log(thetime);
 
 var trainRef = database.ref(("/trainschedule/train " + number));
 // trainRef.set({
@@ -32,36 +43,30 @@ var trainRef = database.ref(("/trainschedule/train " + number));
 var locazione = database.ref("/trainschedule");
 locazione.once("value", function(snapshot) {
 
-	a = snapshot.numChildren();
-	console.log(a);
+    a = snapshot.numChildren();
+    console.log(a);
 
 
 
 
-
-
-for (var i = 1; i <= a; i++){
-	var trainRef = database.ref(("/trainschedule/train " + i));
-trainRef.on("value", function(snap) {
+    for (var i = 1; i <= a; i++) {
+        var trainRef = database.ref(("/trainschedule/train " + i));
+        trainRef.on("value", function(snap) {
 
             // Print the initial data to the console.
             console.log(snap.val());
 
-// var locazione = database.ref("/trainschedule");
-// locazione.once("value", function(snapshot) {
+            // var locazione = database.ref("/trainschedule");
+            // locazione.once("value", function(snapshot) {
 
-// 	var a = snapshot.numChildren();
-// 	console.log(a);
+            // 	var a = snapshot.numChildren();
+            // 	console.log(a);
 
             // Change the html to reflect the initial value.
 
             // Change the clickCounter to match the data in the database
-if (snap.val() != null)
-{
-         
+            if (snap.val() != null) {
 
-            // Log the value of the clickCounter
-           
                 var novoTableRow = $("<tr>");
                 var novoTableDone = $("<td>" + snap.val().trainName + "</td>");
                 var novoTableDtwo = $("<td>" + snap.val().trainDestination + "</td>");
@@ -75,14 +80,14 @@ if (snap.val() != null)
                 novoTableRow.append(novoTableDthree);
                 novoTableRow.append(novoTableDfour);
                 novoTableRow.append(novoTableDfive);
-                
+
 
                 $("#tablebody").append(novoTableRow);
-}
-            
-    });
-    
-}
+            }
+
+        });
+
+    }
 
 });
 
@@ -93,26 +98,30 @@ $("#addTrain").on("click", function() {
     number = parseFloat($("#trainNumber").val());
     name = $("#trainName").val();
     destination = $("#destination").val();
+    
+
     frequency = $("#frequency").val();
     arrivalTime = $("#arrivalTime").val();
+    var thetime = moment(arrivalTime).format('MMMM Do YYYY, h:mm:ss a');
+    console.log(thetime);
     minutesAway = $("#minutesAway").val();
 
     var novoTableRow = $("<tr>");
     var novoTableDone = $("<td>" + name + "</td>");
     var novoTableDtwo = $("<td>" + destination + "</td>");
     var novoTableDthree = $("<td>" + frequency + "</td>");
-    var novoTableDfour = $("<td>" + arrivalTime + "</td>");
+    var novoTableDfour = $("<td>" + thetime + "</td>");
     var novoTableDfive = $("<td>" + minutesAway + "</td>");
     var novoTableDsix = $("<td>" + number + "</td>");
 
-     novoTableRow.append(novoTableDone);
-     novoTableRow.append(novoTableDtwo);
-     novoTableRow.append(novoTableDthree);
-     novoTableRow.append(novoTableDfour);
-     novoTableRow.append(novoTableDfive);
-     novoTableRow.append(novoTableDsix);
+    novoTableRow.append(novoTableDone);
+    novoTableRow.append(novoTableDtwo);
+    novoTableRow.append(novoTableDthree);
+    novoTableRow.append(novoTableDfour);
+    novoTableRow.append(novoTableDfive);
+    novoTableRow.append(novoTableDsix);
 
-  $("#tablebody").append(novoTableRow);
+    $("#tablebody").append(novoTableRow);
 
     database.ref(("/trainschedule/train " + number)).set({
         trainName: name,
