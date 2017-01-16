@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.5/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <!--  <script src="assets/javascript/jscript.js"></script> -->
+    <!-- <link rel="stylesheet" href="assets/css/jjwstylelibrary.css"> -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title> MY train schedule </title>
+</head>
+
+<body>
+    <h1> My Train Schedule </h1>
+    <div class="col-md-8">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Train Schedule</div>
+        <!-- Table -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th> Name </th>
+                    <th> Destination </th>
+                    <th> Frequency (min)</th>
+                    <th> Arrival Time</th>
+                    <th> Minutes Away</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td> Bart </td>
+              <td> San Francisco </td>
+              <td> 15 </td>
+              <td> 3pm </td>
+              <td> 12 </td>
+            </tr>
+
+        </table>
+    </div>
+    </div>
+    <div class="row">
+  
+      <div class="col-md-4 pull-left">
+        <div class="panel blackBg">
+          <div class="panel-heading formTop">
+            <h3 class="panel-title"><strong>Add Train</strong></h3>
+          </div>
+
+        <div class="panel-body">
+  
+        <!-- Start of Entry Form Body -->
+
+          <form>
+            <div class="form-group">
+              <label for="">Train Name</label>
+              <input type="text" class="form-control" placeholder="Enter Train Name..." id="trainNameInput">
+            </div>
+
+            <div class="form-group">
+              <label for="">Destination</label>
+              <input type="text" class="form-control" placeholder="Enter Destination..." id="destinationInput">
+            </div>
+
+            <div class="form-group">
+              <label for="">First Train Time (HH:mm - Military Time)</label>
+              <input type="text" class="form-control" placeholder="Enter Time..." id="firstTrainInput">
+            </div>
+
+            <div class="form-group">
+              <label for="">Frequency (min)</label>
+              <input type="text" class="form-control" placeholder="Enter Frequency..." id="frequencyInput">
+            </div>
+            
+            <button type="submit" class="btn btn-success blackBg" id="addTrainBtn">Submit</button>
+          </form>
+
+        </div>
+        </div>
+</body>
+<script>
+var date = '2015-04-03';
+var format = 'LLLL';
+var result = moment(date).format(format);
+console.log(result);
+// Initialize Firebase
+// var config = {
+//   apiKey: "AIzaSyCAn7uijojtF8McvMwuRtjOwiopN3_enqk",
+//   authDomain: "trainjjw.firebaseapp.com",
+//   databaseURL: "https://trainjjw.firebaseio.com",
+//   storageBucket: "trainjjw.appspot.com",
+//   messagingSenderId: "765865960520"
+// };
+// firebase.initializeApp(config);
+
+// var date = '2015-04-03';
+// var format = 'LLLL';
+// var result = moment(date).format(format);
+// console.log(result);
+</script>
+
+</html>
