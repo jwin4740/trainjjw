@@ -9,7 +9,7 @@ firebase.initializeApp(config);
 
 // Get a reference to the database service
 var database = firebase.database();
-
+var a = "";
 var number = "";
 var name = "";
 var destination = "";
@@ -17,7 +17,7 @@ var frequency = "";
 var arrivalTime = "";
 var minutesAway = "";
 
-var trainRef = database.ref("/trainschedule");
+var trainRef = database.ref(("/trainschedule/train " + number));
 // trainRef.set({
 //     trainNumber: number,
 //     trainName: name,
@@ -28,46 +28,63 @@ var trainRef = database.ref("/trainschedule");
 
 // });
 // At the initial load, get a snapshot of the current data.
-trainRef.on("value", function(snapshot) {
 
-            // // Print the initial data to the console.
-            // console.log(snapshot.val());
+var locazione = database.ref("/trainschedule");
+locazione.once("value", function(snapshot) {
 
-            // // Change the html to reflect the initial value.
+	a = snapshot.numChildren();
+	console.log(a);
 
-            // // Change the clickCounter to match the data in the database
 
-            // count = 2;
-            // console.log(count);
 
-            // // Log the value of the clickCounter
-            // for (var i = 1; i <= count; i++) {
-            //     var novoTableRow = $("<tr>");
-            //     var novoTableDone = $("<td>" + name + "</td>");
-            //     var novoTableDtwo = $("<td>" + destination + "</td>");
-            //     var novoTableDthree = $("<td>" + frequency + "</td>");
-            //     var novoTableDfour = $("<td>" + arrivalTime + "</td>");
-            //     var novoTableDfive = $("<td>" + minutesAway + "</td>");
-            //     var novoTableDsix = $("<td>" + number + "</td>");
-            //     novoTableRow.append(novoTableDone);
-            //     novoTableRow.append(novoTableDtwo);
-            //     novoTableRow.append(novoTableDthree);
-            //     novoTableRow.append(novoTableDfour);
-            //     novoTableRow.append(novoTableDfive);
-            //     novoTableRow.append(novoTableDsix);
 
-            //     $("#tablebody").append(novoTableRow);
 
-            // }
-    
-        // Change the HTML Value
-        // $("#click-value").html(clickCounter);
 
-        // If any errors are experienced, log them to console.
-    },
-    function(errorObject) {
-        console.log("The read failed: " + errorObject.code);
+for (var i = 1; i <= a; i++){
+	var trainRef = database.ref(("/trainschedule/train " + i));
+trainRef.on("value", function(snap) {
+
+            // Print the initial data to the console.
+            console.log(snap.val());
+
+// var locazione = database.ref("/trainschedule");
+// locazione.once("value", function(snapshot) {
+
+// 	var a = snapshot.numChildren();
+// 	console.log(a);
+
+            // Change the html to reflect the initial value.
+
+            // Change the clickCounter to match the data in the database
+if (snap.val() != null)
+{
+         
+
+            // Log the value of the clickCounter
+           
+                var novoTableRow = $("<tr>");
+                var novoTableDone = $("<td>" + snap.val().trainName + "</td>");
+                var novoTableDtwo = $("<td>" + snap.val().trainDestination + "</td>");
+                var novoTableDthree = $("<td>" + snap.val().trainFrequency + "</td>");
+                var novoTableDfour = $("<td>" + snap.val().trainArrivalTime + "</td>");
+                var novoTableDfive = $("<td>" + snap.val().trainEta + "</td>");
+                var novoTableDsix = $("<td>" + snap.val().trainNumber + "</td>");
+                novoTableRow.append(novoTableDsix);
+                novoTableRow.append(novoTableDone);
+                novoTableRow.append(novoTableDtwo);
+                novoTableRow.append(novoTableDthree);
+                novoTableRow.append(novoTableDfour);
+                novoTableRow.append(novoTableDfive);
+                
+
+                $("#tablebody").append(novoTableRow);
+}
+            
     });
+    
+}
+
+});
 
 
 $("#addTrain").on("click", function() {
@@ -87,14 +104,15 @@ $("#addTrain").on("click", function() {
     var novoTableDfour = $("<td>" + arrivalTime + "</td>");
     var novoTableDfive = $("<td>" + minutesAway + "</td>");
     var novoTableDsix = $("<td>" + number + "</td>");
-    novoTableRow.append(novoTableDone);
-    novoTableRow.append(novoTableDtwo);
-    novoTableRow.append(novoTableDthree);
-    novoTableRow.append(novoTableDfour);
-    novoTableRow.append(novoTableDfive);
-    novoTableRow.append(novoTableDsix);
 
-    $("#tablebody").append(novoTableRow);
+     novoTableRow.append(novoTableDone);
+     novoTableRow.append(novoTableDtwo);
+     novoTableRow.append(novoTableDthree);
+     novoTableRow.append(novoTableDfour);
+     novoTableRow.append(novoTableDfive);
+     novoTableRow.append(novoTableDsix);
+
+  $("#tablebody").append(novoTableRow);
 
     database.ref(("/trainschedule/train " + number)).set({
         trainName: name,
