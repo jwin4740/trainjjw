@@ -1,4 +1,3 @@
-
 var config = {
     apiKey: "AIzaSyCAn7uijojtF8McvMwuRtjOwiopN3_enqk",
     authDomain: "trainjjw.firebaseapp.com",
@@ -10,74 +9,102 @@ firebase.initializeApp(config);
 
 // Get a reference to the database service
 var database = firebase.database();
+
+var number = "";
 var name = "";
 var destination = "";
 var frequency = "";
 var arrivalTime = "";
 var minutesAway = "";
 
-database.ref().set({
-    trainName: name,
-    trainDestination: destination,
-    trainFrequency: frequency,
-    trainArrivalTime: arrivalTime,
-    trainEta: minutesAway
+var trainRef = database.ref("/trainschedule");
+// trainRef.set({
+//     trainNumber: number,
+//     trainName: name,
+//     trainDestination: destination,
+//     trainFrequency: frequency,
+//     trainArrivalTime: arrivalTime,
+//     trainEta: minutesAway
 
-});
+// });
 // At the initial load, get a snapshot of the current data.
-database.ref().on("value", function(snapshot) {
+trainRef.on("value", function(snapshot) {
 
-    // Print the initial data to the console.
-    console.log(snapshot.val());
+            // // Print the initial data to the console.
+            // console.log(snapshot.val());
 
-    // Change the html to reflect the initial value.
+            // // Change the html to reflect the initial value.
 
-    // Change the clickCounter to match the data in the database
-    name = snapshot.val().trainName;
+            // // Change the clickCounter to match the data in the database
 
-    // Log the value of the clickCounter
-    console.log(name);
+            // count = 2;
+            // console.log(count);
 
-    // Change the HTML Value
-    // $("#click-value").html(clickCounter);
+            // // Log the value of the clickCounter
+            // for (var i = 1; i <= count; i++) {
+            //     var novoTableRow = $("<tr>");
+            //     var novoTableDone = $("<td>" + name + "</td>");
+            //     var novoTableDtwo = $("<td>" + destination + "</td>");
+            //     var novoTableDthree = $("<td>" + frequency + "</td>");
+            //     var novoTableDfour = $("<td>" + arrivalTime + "</td>");
+            //     var novoTableDfive = $("<td>" + minutesAway + "</td>");
+            //     var novoTableDsix = $("<td>" + number + "</td>");
+            //     novoTableRow.append(novoTableDone);
+            //     novoTableRow.append(novoTableDtwo);
+            //     novoTableRow.append(novoTableDthree);
+            //     novoTableRow.append(novoTableDfour);
+            //     novoTableRow.append(novoTableDfive);
+            //     novoTableRow.append(novoTableDsix);
 
-    // If any errors are experienced, log them to console.
-}, function(errorObject) {
-    console.log("The read failed: " + errorObject.code);
-});
+            //     $("#tablebody").append(novoTableRow);
+
+            // }
+    
+        // Change the HTML Value
+        // $("#click-value").html(clickCounter);
+
+        // If any errors are experienced, log them to console.
+    },
+    function(errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
 
 
 $("#addTrain").on("click", function() {
-event.preventDefault();
+    event.preventDefault();
 
-name = $("#trainName").val();
-destination = $("#destination").val();
-frequency = $("#frequency").val();
-arrivalTime = $("#arrivalTime").val();
-minutesAway = $("#minutesAway").val();
+    number = parseFloat($("#trainNumber").val());
+    name = $("#trainName").val();
+    destination = $("#destination").val();
+    frequency = $("#frequency").val();
+    arrivalTime = $("#arrivalTime").val();
+    minutesAway = $("#minutesAway").val();
 
-var novoTableRow = $("<tr>");
-var novoTableDone = $("<td>" + name + "</td>");
-var novoTableDtwo = $("<td>" + destination + "</td>");
-var novoTableDthree = $("<td>" + frequency + "</td>");
-var novoTableDfour = $("<td>" + arrivalTime + "</td>");
-var novoTableDfive = $("<td>" + minutesAway + "</td>");
-novoTableRow.append(novoTableDone);
-novoTableRow.append(novoTableDtwo);
-novoTableRow.append(novoTableDthree);
-novoTableRow.append(novoTableDfour);
-novoTableRow.append(novoTableDfive);
+    var novoTableRow = $("<tr>");
+    var novoTableDone = $("<td>" + name + "</td>");
+    var novoTableDtwo = $("<td>" + destination + "</td>");
+    var novoTableDthree = $("<td>" + frequency + "</td>");
+    var novoTableDfour = $("<td>" + arrivalTime + "</td>");
+    var novoTableDfive = $("<td>" + minutesAway + "</td>");
+    var novoTableDsix = $("<td>" + number + "</td>");
+    novoTableRow.append(novoTableDone);
+    novoTableRow.append(novoTableDtwo);
+    novoTableRow.append(novoTableDthree);
+    novoTableRow.append(novoTableDfour);
+    novoTableRow.append(novoTableDfive);
+    novoTableRow.append(novoTableDsix);
 
-$("#tablebody").append(novoTableRow);
+    $("#tablebody").append(novoTableRow);
 
-database.ref().set({
-    trainName: name,
-    trainDestination: destination,
-    trainFrequency: frequency,
-    trainArrivalTime: arrivalTime,
-    trainEta: minutesAway
+    database.ref(("/trainschedule/train " + number)).set({
+        trainName: name,
+        trainDestination: destination,
+        trainFrequency: frequency,
+        trainArrivalTime: arrivalTime,
+        trainEta: minutesAway,
+        trainNumber: number
 
-});
+    });
 
 });
 
@@ -121,7 +148,3 @@ database.ref().set({
 //   $("#click-value").html(clickCounter);
 
 // });
-
-
-
-
