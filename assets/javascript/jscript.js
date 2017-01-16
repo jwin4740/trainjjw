@@ -1,72 +1,90 @@
-$(document).ready(function (){
+
+var config = {
+    apiKey: "AIzaSyCAn7uijojtF8McvMwuRtjOwiopN3_enqk",
+    authDomain: "trainjjw.firebaseapp.com",
+    databaseURL: "https://trainjjw.firebaseio.com",
+    storageBucket: "trainjjw.appspot.com",
+    messagingSenderId: "765865960520"
+};
+firebase.initializeApp(config);
+
+// Get a reference to the database service
+var database = firebase.database();
+var name = "";
+var destination = "";
+var frequency = "";
+var arrivalTime = "";
+var minutesAway = "";
+
+database.ref().set({
+    trainName: name,
+    trainDestination: destination,
+    trainFrequency: frequency,
+    trainArrivalTime: arrivalTime,
+    trainEta: minutesAway
+
+});
+// At the initial load, get a snapshot of the current data.
+database.ref().on("value", function(snapshot) {
+
+    // Print the initial data to the console.
+    console.log(snapshot.val());
+
+    // Change the html to reflect the initial value.
+
+    // Change the clickCounter to match the data in the database
+    name = snapshot.val().trainName;
+
+    // Log the value of the clickCounter
+    console.log(name);
+
+    // Change the HTML Value
+    // $("#click-value").html(clickCounter);
+
+    // If any errors are experienced, log them to console.
+}, function(errorObject) {
+    console.log("The read failed: " + errorObject.code);
+});
 
 
+$("#addTrain").on("click", function() {
+event.preventDefault();
 
-//   var config = {
-//     apiKey: "AIzaSyCAn7uijojtF8McvMwuRtjOwiopN3_enqk",
-//     authDomain: "trainjjw.firebaseapp.com",
-//     databaseURL: "https://trainjjw.firebaseio.com",
-//     storageBucket: "trainjjw.appspot.com",
-//     messagingSenderId: "765865960520"
-//   };
-// firebase.initializeApp(config);
+name = $("#trainName").val();
+destination = $("#destination").val();
+frequency = $("#frequency").val();
+arrivalTime = $("#arrivalTime").val();
+minutesAway = $("#minutesAway").val();
 
-// // Get a reference to the database service
-// var database = firebase.database();
+var novoTableRow = $("<tr>");
+var novoTableDone = $("<td>" + name + "</td>");
+var novoTableDtwo = $("<td>" + destination + "</td>");
+var novoTableDthree = $("<td>" + frequency + "</td>");
+var novoTableDfour = $("<td>" + arrivalTime + "</td>");
+var novoTableDfive = $("<td>" + minutesAway + "</td>");
+novoTableRow.append(novoTableDone);
+novoTableRow.append(novoTableDtwo);
+novoTableRow.append(novoTableDthree);
+novoTableRow.append(novoTableDfour);
+novoTableRow.append(novoTableDfive);
 
-  
-// // At the initial load, get a snapshot of the current data.
-// database.ref().on("value", function(snapshot) {
+$("#tablebody").append(novoTableRow);
 
-//   // Print the initial data to the console.
-//   console.log(snapshot.val());
+database.ref().set({
+    trainName: name,
+    trainDestination: destination,
+    trainFrequency: frequency,
+    trainArrivalTime: arrivalTime,
+    trainEta: minutesAway
 
-//   // Change the html to reflect the initial value.
+});
 
-//   // Change the clickCounter to match the data in the database
-//   clickCounter = snapshot.val().clickCount;
+});
 
-//   // Log the value of the clickCounter
-//   console.log(clickCounter);
-
-//   // Change the HTML Value
-//   $("#click-value").html(clickCounter);
-
-// // If any errors are experienced, log them to console.
-// }, function(errorObject) {
-//   console.log("The read failed: " + errorObject.code);
-// });
-
-// --------------------------------------------------------------
-  $("#addTrain").on("click", function() {
-  	event.preventDefault();
-
-  	var trainName = $("#trainName").val();
-  	var destination = $("#destination").val();
-  	var frequency = $("#frequency").val();
-  	var arrivalTime = $("#arrivalTime").val();
-  	var minutesAway = $("#minutesAway").val();
-  	
-  	var novoTableRow = $("<tr>");
-  	var novoTableDone = $("<td>" + trainName + "</td>");
-  	var novoTableDtwo = $("<td>" + destination + "</td>");
-  	var novoTableDthree = $("<td>" + frequency + "</td>");
-  	var novoTableDfour = $("<td>" + arrivalTime + "</td>");
-  	var novoTableDfive = $("<td>" + minutesAway + "</td>");
-  	novoTableRow.append(novoTableDone);
-  	novoTableRow.append(novoTableDtwo);
-  	novoTableRow.append(novoTableDthree);
-  	novoTableRow.append(novoTableDfour);
-  	novoTableRow.append(novoTableDfive);
-
-  	$("#tablebody").append(novoTableRow);
-
-  });
-  
 // Whenever a user clicks the click button
 
 
-  // Reduce the clickCounter by 1
+// Reduce the clickCounter by 1
 //   clickCounter--;
 
 //   // Alert User and reset the counter
@@ -106,4 +124,4 @@ $(document).ready(function (){
 
 
 
-});
+
