@@ -77,32 +77,48 @@ locazione.once("value", function(snapshot) {
 
                 var min = moment().minute(); //gets the current minute 
                 console.log(min);
-                fireMinutesAway = (fireFreq - min % fireFreq);
+                fireMinutesAway = ((fireFreq - min) % fireFreq);
                 var hour = moment().hour();
                 fireNextArrival = moment().add(fireMinutesAway, 'minutes').format("h:mm a");
 
                 var fireFreqDisplay = "every " + fireFreq + " minutes";
                 var fireMinutesAwayDisplay = fireMinutesAway + " min";
                 var novoTableRow = $("<tr class='row" + snap.val().trainNumber + "' data-value='" + snap.val().trainNumber + "'>");
-                var fireFrequencyHour = "";
+                
+                var fireFrequencyHour = fireFreq;
                 var fireHourCount = 0;
                 var fireFrequencyMinutes;
 
-   if (fireFreq > 59)
-    {
+                var fireHourMinutesAway = fireMinutesAway;
+                var fireHourMinutes = "";
+                var fireHourCountMin = 0;
 
-        do
-        {
-            fireFrequencyHour = fireFreq - 60;
-            fireHourCount++;
-        }
-        while (fireFrequencyHour > 59);
-    
-        
-        fireFrequencyMinutes = fireFrequencyHour;
-        fireFreqDisplay = "every " + fireHourCount + " hr "+ fireFrequencyMinutes + " min";
-    }
-    
+                if (fireFreq > 59) {
+
+                    do {
+                        fireFrequencyHour = fireFrequencyHour - 60;
+                        fireHourCount++;
+                    }
+                    while (fireFrequencyHour > 59);
+
+
+                    fireFrequencyMinutes = fireFrequencyHour;
+                    fireFreqDisplay = "every " + fireHourCount + " hr " + fireFrequencyMinutes + " min";
+                }
+
+                if (fireMinutesAway > 59) {
+
+                    do {
+                        fireHourMinutesAway = fireHourMinutesAway - 60;
+                        fireHourCountMin++;
+                    }
+                    while (fireHourMinutesAway > 59);
+
+
+                    fireHourMinutes = fireHourMinutesAway;
+                    fireMinutesAwayDisplay = fireHourCountMin + " hr " + fireHourMinutes + " min";
+                }
+
                 var novoTableDsix = $("<td>" + fireTrainNumber + "</td>");
                 var novoTableDone = $("<td>" + fireName + "</td>");
                 var novoTableDfour = $("<td>" + fireNextArrival + "</td>");
@@ -143,46 +159,49 @@ $("#addTrain").on("click", function() {
 
 
 
-    minutesAway = (frequency - min % frequency);
+    minutesAway = ((frequency - min) % frequency);
     var hour = moment().hour();
     nextArrival = moment().add(minutesAway, 'minutes').format("h:mm a");
 
     var frequencyDisplay = "every " + frequency + " minutes";
     var minutesAwayDisplay = minutesAway + " min";
-    var frequencyHour = "";
+
+    var frequencyHour = frequency;
     var frequencyMinutes = "";
-    var frequencyHourMin = "";
     var hourCount = 0;
-    if (frequency > 59)
-    {
 
-        do
-        {
-            frequencyHour = frequency - 60;
+    var hourMinutesAway = minutesAway;
+    var hourMinutes = "";
+    var hourCountMin = 0;
+
+
+    if (frequency > 59) {
+
+        do {
+            frequencyHour = frequencyHour - 60;
+
             hourCount++;
         }
         while (frequencyHour > 59);
-    
-        
+
+
         frequencyMinutes = frequencyHour;
-        frequencyDisplay = "every " + hourCount + " hr "+ frequencyMinutes + " min";
+        frequencyDisplay = "every " + hourCount + " hr " + frequencyMinutes + " min";
     }
 
-    if (frequencyMinutes > 59)
-    {
+    if (minutesAway > 59) {
 
-        do
-        {
-            frequencyHourMin = frequencyMinutes - 60;
-            hourCount++;
+        do {
+            hourMinutesAway = hourMinutesAway - 60;
+            hourCountMin++;
         }
-        while (frequencyHour > 59);
-    
-        
-        frequencyMinutes = frequencyHour;
-        frequencyDisplay = "every " + hourCount + " hr "+ frequencyMinutes + " min";
+        while (hourMinutesAway > 59);
+
+
+        hourMinutes = hourMinutesAway;
+        minutesAwayDisplay = hourCountMin + " hr " + hourMinutes + " min";
     }
-    
+
 
 
     var novoTableRow = $("<tr class='row" + number + "' data-value='" + number + "'>");
