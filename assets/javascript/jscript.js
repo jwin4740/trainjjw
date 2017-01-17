@@ -18,15 +18,15 @@ var number = "";
 var name = "";
 var destination = "";
 var frequency = "";
-var arrivalTime = "";
+var nextArrival = "";
 var minutesAway = "";
 function showTime () {
 	 var thetime = moment().format('MMMM Do YYYY, h:mm:ss a');
     $("#headerspan").html(thetime);
 }
 setInterval(showTime, 1000);
- var thetime = moment().format('MMMM Do YYYY, h:mm:ss a');
-    console.log(thetime);
+var novoNumber = moment([2015, 0, 16]); 
+console.log(novoNumber);
 
 var trainRef = database.ref(("/trainschedule/train " + number));
 // trainRef.set({
@@ -34,7 +34,7 @@ var trainRef = database.ref(("/trainschedule/train " + number));
 //     trainName: name,
 //     trainDestination: destination,
 //     trainFrequency: frequency,
-//     trainArrivalTime: arrivalTime,
+//     trainnextArrival: nextArrival,
 //     trainEta: minutesAway
 
 // });
@@ -67,18 +67,19 @@ locazione.once("value", function(snapshot) {
             // Change the clickCounter to match the data in the database
             if (snap.val() != null) {
 
-                var novoTableRow = $("<tr>");
+                var novoTableRow = $("<tr class='row" + snap.val().trainNumber + "' data-value='" + snap.val().trainNumber + "'>");
                 var novoTableDone = $("<td>" + snap.val().trainName + "</td>");
                 var novoTableDtwo = $("<td>" + snap.val().trainDestination + "</td>");
                 var novoTableDthree = $("<td>" + snap.val().trainFrequency + "</td>");
-                var novoTableDfour = $("<td>" + snap.val().trainArrivalTime + "</td>");
+                var novoTableDfour = $("<td>" + snap.val().trainnextArrival + "</td>");
                 var novoTableDfive = $("<td>" + snap.val().trainEta + "</td>");
                 var novoTableDsix = $("<td>" + snap.val().trainNumber + "</td>");
                 novoTableRow.append(novoTableDsix);
                 novoTableRow.append(novoTableDone);
                 novoTableRow.append(novoTableDtwo);
-                novoTableRow.append(novoTableDthree);
                 novoTableRow.append(novoTableDfour);
+                novoTableRow.append(novoTableDthree);
+              
                 novoTableRow.append(novoTableDfive);
 
 
@@ -98,42 +99,48 @@ $("#addTrain").on("click", function() {
     number = parseFloat($("#trainNumber").val());
     name = $("#trainName").val();
     destination = $("#destination").val();
-    
-
     frequency = $("#frequency").val();
-    arrivalTime = $("#arrivalTime").val();
-    var thetime = moment(arrivalTime).format('MMMM Do YYYY, h:mm:ss a');
-    console.log(thetime);
+    nextArrival = $("#nextArrival").val();
     minutesAway = $("#minutesAway").val();
 
-    var novoTableRow = $("<tr>");
+ 
+
+    var novoTableRow = $("<tr class='row" + number + "' data-value='" + number + "'>");
+    var novoTableDsix = $("<td>" + number + "</td>");
     var novoTableDone = $("<td>" + name + "</td>");
     var novoTableDtwo = $("<td>" + destination + "</td>");
     var novoTableDthree = $("<td>" + frequency + "</td>");
-    var novoTableDfour = $("<td>" + thetime + "</td>");
+    var novoTableDfour = $("<td>" + nextArrival + "</td>");
     var novoTableDfive = $("<td>" + minutesAway + "</td>");
-    var novoTableDsix = $("<td>" + number + "</td>");
+    
 
+    novoTableRow.append(novoTableDsix);
     novoTableRow.append(novoTableDone);
     novoTableRow.append(novoTableDtwo);
-    novoTableRow.append(novoTableDthree);
     novoTableRow.append(novoTableDfour);
+    novoTableRow.append(novoTableDthree);
+    
     novoTableRow.append(novoTableDfive);
-    novoTableRow.append(novoTableDsix);
+    
+	
+ $("#tablebody").append(novoTableRow);
+          
 
-    $("#tablebody").append(novoTableRow);
+
 
     database.ref(("/trainschedule/train " + number)).set({
         trainName: name,
         trainDestination: destination,
         trainFrequency: frequency,
-        trainArrivalTime: arrivalTime,
+        trainnextArrival: nextArrival,
         trainEta: minutesAway,
         trainNumber: number
 
     });
 
 });
+
+
 
 // Whenever a user clicks the click button
 
