@@ -74,27 +74,47 @@ locazione.once("value", function(snapshot) {
                 var fireNextArrival = snap.val().trainnextArrival;
                 var fireFreq = snap.val().trainFrequency;
                 var fireMinutesAway = snap.val().trainMinutesAway;
-                
+
                 var min = moment().minute(); //gets the current minute 
                 console.log(min);
-                fireMinutesAway = (fireFreq - min % fireFreq) + " minute(s)";
+                fireMinutesAway = (fireFreq - min % fireFreq);
                 var hour = moment().hour();
                 fireNextArrival = moment().add(fireMinutesAway, 'minutes').format("h:mm a");
 
+                var fireFreqDisplay = "every " + fireFreq + " minutes";
+                var fireMinutesAwayDisplay = fireMinutesAway + " min";
                 var novoTableRow = $("<tr class='row" + snap.val().trainNumber + "' data-value='" + snap.val().trainNumber + "'>");
+                var fireFrequencyHour = "";
+                var fireHourCount = 0;
+                var fireFrequencyMinutes;
 
+   if (fireFreq > 59)
+    {
+
+        do
+        {
+            fireFrequencyHour = fireFreq - 60;
+            fireHourCount++;
+        }
+        while (fireFrequencyHour > 59);
+    
+        
+        fireFrequencyMinutes = fireFrequencyHour;
+        fireFreqDisplay = "every " + fireHourCount + " hr "+ fireFrequencyMinutes + " min";
+    }
+    
                 var novoTableDsix = $("<td>" + fireTrainNumber + "</td>");
                 var novoTableDone = $("<td>" + fireName + "</td>");
                 var novoTableDfour = $("<td>" + fireNextArrival + "</td>");
                 var novoTableDtwo = $("<td>" + fireDestination + "</td>");
-                var novoTableDthree = $("<td>" + fireFreq + "</td>");
-                var novoTableDfive = $("<td>" + fireMinutesAway + "</td>");
+                var novoTableDthree = $("<td>" + fireFreqDisplay + "</td>");
+                var novoTableDfive = $("<td>" + fireMinutesAwayDisplay + "</td>");
 
 
-
+                novoTableRow.append(novoTableDfour);
                 novoTableRow.append(novoTableDsix);
                 novoTableRow.append(novoTableDone);
-                 novoTableRow.append(novoTableDfour);
+
                 novoTableRow.append(novoTableDtwo);
                 novoTableRow.append(novoTableDthree);
                 novoTableRow.append(novoTableDfive);
@@ -120,25 +140,65 @@ $("#addTrain").on("click", function() {
 
     var min = moment().minute(); //gets the current minute 
     console.log(min);
-    minutesAway = (frequency - min % frequency) + " minute(s)";
+
+
+
+    minutesAway = (frequency - min % frequency);
     var hour = moment().hour();
     nextArrival = moment().add(minutesAway, 'minutes').format("h:mm a");
+
+    var frequencyDisplay = "every " + frequency + " minutes";
+    var minutesAwayDisplay = minutesAway + " min";
+    var frequencyHour = "";
+    var frequencyMinutes = "";
+    var frequencyHourMin = "";
+    var hourCount = 0;
+    if (frequency > 59)
+    {
+
+        do
+        {
+            frequencyHour = frequency - 60;
+            hourCount++;
+        }
+        while (frequencyHour > 59);
+    
+        
+        frequencyMinutes = frequencyHour;
+        frequencyDisplay = "every " + hourCount + " hr "+ frequencyMinutes + " min";
+    }
+
+    if (frequencyMinutes > 59)
+    {
+
+        do
+        {
+            frequencyHourMin = frequencyMinutes - 60;
+            hourCount++;
+        }
+        while (frequencyHour > 59);
+    
+        
+        frequencyMinutes = frequencyHour;
+        frequencyDisplay = "every " + hourCount + " hr "+ frequencyMinutes + " min";
+    }
+    
 
 
     var novoTableRow = $("<tr class='row" + number + "' data-value='" + number + "'>");
     var novoTableDsix = $("<td>" + number + "</td>");
     var novoTableDone = $("<td>" + name + "</td>");
     var novoTableDtwo = $("<td>" + destination + "</td>");
-    var novoTableDthree = $("<td>" + frequency + "</td>");
+    var novoTableDthree = $("<td>" + frequencyDisplay + "</td>");
     var novoTableDfour = $("<td>" + nextArrival + "</td>");
-    var novoTableDfive = $("<td>" + minutesAway + "</td>");
+    var novoTableDfive = $("<td>" + minutesAwayDisplay + "</td>");
 
-
+    novoTableRow.append(novoTableDfour);
     novoTableRow.append(novoTableDsix);
     novoTableRow.append(novoTableDone);
-    novoTableRow.append(novoTableDfour);
+
     novoTableRow.append(novoTableDtwo);
-    
+
     novoTableRow.append(novoTableDthree);
 
     novoTableRow.append(novoTableDfive);
