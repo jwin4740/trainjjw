@@ -1,9 +1,34 @@
-table {
-	text-align: center;
-	padding: 4px;
+body {
+    background-image: url(../images/hogfinal.jpg);
+    background-size: cover;
 }
 
-th{
-	text-align: center;
-	padding: 4px;
+.mytable {
+    max-height: 450px;
+    overflow-y: scroll;
+}
+
+#tablebody {
+    font-size: 12px;
+   
+
+}
+.add{
+	height: 275px;
+}
+
+.formadd{
+	height: 45px;
+}
+input{
+	height: 5px;
+}
+table {
+	     text-align: center;
+    padding: 4px;
+}
+
+th {
+    text-align: center;
+    padding: 4px;
 }
