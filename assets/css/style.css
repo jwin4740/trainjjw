@@ -66,7 +66,7 @@ p{
 }
 
 ::-webkit-input-placeholder { 
-    font-size: 9px;
+    font-size: 11px;
   color: #696969;
 }
 .fieldhead{
@@ -135,7 +135,6 @@ tbody {
     color: #F6BC5E;
 }
 
-.row {
-    clear: both;
-    border: solid 2px black;
+td.trainrowfrequency {
+    color: black;
 }

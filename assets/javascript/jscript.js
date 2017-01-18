@@ -28,238 +28,237 @@ function showTime() {
 setInterval(showTime, 1000);
 
 
-// var trainRef = database.ref(("/trainschedule/train " + number));
+var trainRef = database.ref(("/trainschedule/train " + number));
 
 
-// var locazione = database.ref("/trainschedule");
-// locazione.once("value", function(snapshot) {
+var locazione = database.ref("/trainschedule");
+locazione.once("value", function(snapshot) {
 
-//     a = snapshot.numChildren();
-//     console.log(a);
+    a = snapshot.numChildren();
+    console.log(a);
 
 
 
 
-//     for (var i = 1; i <= a; i++) {
-//         var trainRef = database.ref(("/trainschedule/train " + i));
-//         trainRef.on("value", function(snap) {
+    for (var i = 1; i <= a; i++) {
+        var trainRef = database.ref(("/trainschedule/train " + i));
+        trainRef.on("value", function(snap) {
 
-//             // Print the initial data to the console.
-//             console.log(snap.val());
+            // Print the initial data to the console.
+            console.log(snap.val());
 
-//             // var locazione = database.ref("/trainschedule");
-//             // locazione.once("value", function(snapshot) {
+            // var locazione = database.ref("/trainschedule");
+            // locazione.once("value", function(snapshot) {
 
-//             //  var a = snapshot.numChildren();
-//             //  console.log(a);
+            //  var a = snapshot.numChildren();
+            //  console.log(a);
 
-//             // Change the html to reflect the initial value.
+            // Change the html to reflect the initial value.
 
-//             // Change the clickCounter to match the data in the database
-//             if (snap.val() != null) {
+            // Change the clickCounter to match the data in the database
+            if (snap.val() != null) {
 
-//                 var fireTrainNumber = snap.val().trainNumber;
-//                 var fireName = snap.val().trainName;
-//                 var fireDestination = snap.val().trainDestination;
-//                 var fireNextArrival = snap.val().trainNextArrival;
-//                 var fireFreq = snap.val().trainFrequency;
-//                 var fireMinutesAway = snap.val().trainMinutesAway;
+                var fireTrainNumber = snap.val().trainNumber;
+                var fireName = snap.val().trainName;
+                var fireDestination = snap.val().trainDestination;
+                var fireNextArrival = snap.val().trainNextArrival;
+                var fireFreq = snap.val().trainFrequency;
+                var fireMinutesAway = snap.val().trainMinutesAway;
 
-//                 var min = moment().minute(); //gets the current minute 
-//                 console.log(min);
-//                 fireMinutesAway = (fireFreq - (min % fireFreq));
-//                 var hour = moment().hour();
-//                 fireNextArrival = moment().add(fireMinutesAway, 'minutes').format("h:mm a");
+                var min = moment().minute(); //gets the current minute 
+                console.log(min);
+                fireMinutesAway = (fireFreq - (min % fireFreq));
+                var hour = moment().hour();
+                fireNextArrival = moment().add(fireMinutesAway, 'minutes').format("h:mm a");
 
-//                 var fireFreqDisplay = "every " + fireFreq + " minutes";
-//                 var fireMinutesAwayDisplay = fireMinutesAway + " min";
-//                 var novoTableRow = $("<tr class='row" + snap.val().trainNumber + "' data-value='" + snap.val().trainNumber + "'>");
+                var fireFreqDisplay = "every " + fireFreq + " minutes";
+                var fireMinutesAwayDisplay = fireMinutesAway + " min";
+                var novoTableRow = $("<tr class='row" + snap.val().trainNumber + "' data-value='" + snap.val().trainNumber + "'>");
 
-//                 var fireFrequencyHour = fireFreq;
-//                 var fireHourCount = 0;
-//                 var fireFrequencyMinutes;
+                var fireFrequencyHour = fireFreq;
+                var fireHourCount = 0;
+                var fireFrequencyMinutes;
 
-//                 var fireHourMinutesAway = fireMinutesAway;
-//                 var fireHourMinutes = "";
-//                 var fireHourCountMin = 0;
+                var fireHourMinutesAway = fireMinutesAway;
+                var fireHourMinutes = "";
+                var fireHourCountMin = 0;
 
-//                 if (fireFreq > 59) {
+                if (fireFreq > 59) {
 
-//                     do {
-//                         fireFrequencyHour = fireFrequencyHour - 60;
-//                         fireHourCount++;
-//                     }
-//                     while (fireFrequencyHour > 59);
+                    do {
+                        fireFrequencyHour = fireFrequencyHour - 60;
+                        fireHourCount++;
+                    }
+                    while (fireFrequencyHour > 59);
 
 
-//                     fireFrequencyMinutes = fireFrequencyHour;
-//                     fireFreqDisplay = "every " + fireHourCount + " hr " + fireFrequencyMinutes + " min";
-//                 }
+                    fireFrequencyMinutes = fireFrequencyHour;
+                    fireFreqDisplay = "every " + fireHourCount + " hr " + fireFrequencyMinutes + " min";
+                }
 
-//                 if (fireMinutesAway > 59) {
+                if (fireMinutesAway > 59) {
 
-//                     do {
-//                         fireHourMinutesAway = fireHourMinutesAway - 60;
-//                         fireHourCountMin++;
-//                     }
-//                     while (fireHourMinutesAway > 59);
+                    do {
+                        fireHourMinutesAway = fireHourMinutesAway - 60;
+                        fireHourCountMin++;
+                    }
+                    while (fireHourMinutesAway > 59);
 
 
-//                     fireHourMinutes = fireHourMinutesAway;
-//                     fireMinutesAwayDisplay = fireHourCountMin + " hr " + fireHourMinutes + " min";
-//                 }
+                    fireHourMinutes = fireHourMinutesAway;
+                    fireMinutesAwayDisplay = fireHourCountMin + " hr " + fireHourMinutes + " min";
+                }
 
-//                 var novoTableDsix = $("<td class='trainrow'>" + fireTrainNumber + "</td>");
-//                 var novoTableDone = $("<td class='trainrow'>" + fireName + "</td>");
-//                 var novoTableDfour = $("<td class='trainrow'>" + fireNextArrival + "</td>");
-//                 var novoTableDtwo = $("<td class='trainrow'>" + fireDestination + "</td>");
-//                 var novoTableDthree = $("<td class='trainrow'>" + fireFreqDisplay + "</td>");
-//                 var novoTableDfive = $("<td class='trainrow'>" + fireMinutesAwayDisplay + "</td>");
+                var novoTableDsix = $("<td class='trainrow'>" + fireTrainNumber + "</td>");
+                var novoTableDone = $("<td class='trainrow'>" + fireName + "</td>");
+                var novoTableDfour = $("<td class='trainrow'>" + fireNextArrival + "</td>");
+                var novoTableDtwo = $("<td class='trainrow'>" + fireDestination + "</td>");
+                var novoTableDthree = $("<td class='trainrow'>" + fireFreqDisplay + "</td>");
+                var novoTableDfive = $("<td class='trainrow'>" + fireMinutesAwayDisplay + "</td>");
 
 
-//                 novoTableRow.append(novoTableDfour);
-//                 novoTableRow.append(novoTableDsix);
-//                 novoTableRow.append(novoTableDone);
+                novoTableRow.append(novoTableDfour);
+                novoTableRow.append(novoTableDsix);
+                novoTableRow.append(novoTableDone);
 
-//                 novoTableRow.append(novoTableDtwo);
-//                 novoTableRow.append(novoTableDthree);
-//                 novoTableRow.append(novoTableDfive);
+                novoTableRow.append(novoTableDtwo);
+                novoTableRow.append(novoTableDthree);
+                novoTableRow.append(novoTableDfive);
 
 
-//                 $("#tablebody").append(novoTableRow);
-//             }
+                $("#tablebody").append(novoTableRow);
+            }
 
-//         });
+        });
 
-//     }
+    }
 
 
 
 
-// });
+});
 
-// function updateFireBase() {
+function updateFireBase() {
 
-//     $(".trainrow").remove();
+    $(".trainrow").remove();
 
-//     var locazione = database.ref("/trainschedule");
-//     locazione.once("value", function(snapshot) {
+    var locazione = database.ref("/trainschedule");
+    locazione.once("value", function(snapshot) {
 
-//         a = snapshot.numChildren();
-//         console.log(a);
+        a = snapshot.numChildren();
+        console.log(a);
 
 
 
 
-//         for (var i = 1; i <= a; i++) {
-//             var trainRef = database.ref(("/trainschedule/train " + i));
-//             trainRef.on("value", function(snap) {
+        for (var i = 1; i <= a; i++) {
+            var trainRef = database.ref(("/trainschedule/train " + i));
+            trainRef.on("value", function(snap) {
 
-//                 // Print the initial data to the console.
-//                 console.log(snap.val());
+                // Print the initial data to the console.
+                console.log(snap.val());
 
-//                 // var locazione = database.ref("/trainschedule");
-//                 // locazione.once("value", function(snapshot) {
+                // var locazione = database.ref("/trainschedule");
+                // locazione.once("value", function(snapshot) {
 
-//                 //  var a = snapshot.numChildren();
-//                 //  console.log(a);
+                //  var a = snapshot.numChildren();
+                //  console.log(a);
 
-//                 // Change the html to reflect the initial value.
+                // Change the html to reflect the initial value.
 
-//                 // Change the clickCounter to match the data in the database
-//                 if (snap.val() != null) {
+                // Change the clickCounter to match the data in the database
+                if (snap.val() != null) {
 
-//                     var fireTrainNumber = snap.val().trainNumber;
-//                     var fireName = snap.val().trainName;
-//                     var fireDestination = snap.val().trainDestination;
-//                     var fireNextArrival = snap.val().trainNextArrival;
-//                     var fireFreq = snap.val().trainFrequency;
-//                     var fireMinutesAway = snap.val().trainMinutesAway;
+                    var fireTrainNumber = snap.val().trainNumber;
+                    var fireName = snap.val().trainName;
+                    var fireDestination = snap.val().trainDestination;
+                    var fireNextArrival = snap.val().trainNextArrival;
+                    var fireFreq = snap.val().trainFrequency;
+                    var fireMinutesAway = snap.val().trainMinutesAway;
 
-//                     var min = moment().minute(); //gets the current minute 
-//                     console.log(min);
-//                     fireMinutesAway = (fireFreq - (min % fireFreq));
-//                     var hour = moment().hour();
-//                     fireNextArrival = moment().add(fireMinutesAway, 'minutes').format("h:mm a");
+                    var min = moment().minute(); //gets the current minute 
+                    console.log(min);
+                    fireMinutesAway = (fireFreq - (min % fireFreq));
+                    var hour = moment().hour();
+                    fireNextArrival = moment().add(fireMinutesAway, 'minutes').format("h:mm a");
 
-//                     var fireFreqDisplay = "every " + fireFreq + " minutes";
-//                     var fireMinutesAwayDisplay = fireMinutesAway + " min";
-//                     var novoTableRow = $("<tr class='row" + snap.val().trainNumber + "' data-value='" + snap.val().trainNumber + "'>");
+                    var fireFreqDisplay = "every " + fireFreq + " minutes";
+                    var fireMinutesAwayDisplay = fireMinutesAway + " min";
+                    var novoTableRow = $("<tr class='row" + snap.val().trainNumber + "' data-value='" + snap.val().trainNumber + "'>");
 
-//                     var fireFrequencyHour = fireFreq;
-//                     var fireHourCount = 0;
-//                     var fireFrequencyMinutes;
+                    var fireFrequencyHour = fireFreq;
+                    var fireHourCount = 0;
+                    var fireFrequencyMinutes;
 
-//                     var fireHourMinutesAway = fireMinutesAway;
-//                     var fireHourMinutes = "";
-//                     var fireHourCountMin = 0;
+                    var fireHourMinutesAway = fireMinutesAway;
+                    var fireHourMinutes = "";
+                    var fireHourCountMin = 0;
 
-//                     if (fireFreq > 59) {
+                    if (fireFreq > 59) {
 
-//                         do {
-//                             fireFrequencyHour = fireFrequencyHour - 60;
-//                             fireHourCount++;
-//                         }
-//                         while (fireFrequencyHour > 59);
+                        do {
+                            fireFrequencyHour = fireFrequencyHour - 60;
+                            fireHourCount++;
+                        }
+                        while (fireFrequencyHour > 59);
 
 
-//                         fireFrequencyMinutes = fireFrequencyHour;
-//                         fireFreqDisplay = "every " + fireHourCount + " hr " + fireFrequencyMinutes + " min";
-//                     }
+                        fireFrequencyMinutes = fireFrequencyHour;
+                        fireFreqDisplay = "every " + fireHourCount + " hr " + fireFrequencyMinutes + " min";
+                    }
 
-//                     if (fireMinutesAway > 59) {
+                    if (fireMinutesAway > 59) {
 
-//                         do {
-//                             fireHourMinutesAway = fireHourMinutesAway - 60;
-//                             fireHourCountMin++;
-//                         }
-//                         while (fireHourMinutesAway > 59);
+                        do {
+                            fireHourMinutesAway = fireHourMinutesAway - 60;
+                            fireHourCountMin++;
+                        }
+                        while (fireHourMinutesAway > 59);
 
 
-//                         fireHourMinutes = fireHourMinutesAway;
-//                         fireMinutesAwayDisplay = fireHourCountMin + " hr " + fireHourMinutes + " min";
-//                     }
-//                     var novoTableRow = $("<tr class='row" + fireTrainNumber + "' data-value='" + fireTrainNumber + "'>");
-                   
-//                     var novoTableDsix = $("<td class='trainrow'>" + fireTrainNumber + "</td>");
-//                     var novoTableDone = $("<td class='trainrow'>" + fireName + "</td>");
-//                     var novoTableDfour = $("<td class='trainrow'>" + fireNextArrival + "</td>");
-//                     var novoTableDtwo = $("<td class='trainrow'>" + fireDestination + "</td>");
-//                     var novoTableDthree = $("<td class='trainrow'>" + fireFreqDisplay + "</td>");
-//                     var novoTableDfive = $("<td class='trainrow'>" + fireMinutesAwayDisplay + "</td>");
+                        fireHourMinutes = fireHourMinutesAway;
+                        fireMinutesAwayDisplay = fireHourCountMin + " hr " + fireHourMinutes + " min";
+                    }
 
+                    var novoTableDsix = $("<td class='trainrow'>" + fireTrainNumber + "</td>");
+                    var novoTableDone = $("<td class='trainrow'>" + fireName + "</td>");
+                    var novoTableDfour = $("<td class='trainrow'>" + fireNextArrival + "</td>");
+                    var novoTableDtwo = $("<td class='trainrow'>" + fireDestination + "</td>");
+                    var novoTableDthree = $("<td class='trainrow'>" + fireFreqDisplay + "</td>");
+                    var novoTableDfive = $("<td class='trainrow'>" + fireMinutesAwayDisplay + "</td>");
 
-//                     novoTableRow.append(novoTableDfour);
-//                     novoTableRow.append(novoTableDsix);
-//                     novoTableRow.append(novoTableDone);
 
-//                     novoTableRow.append(novoTableDtwo);
-//                     novoTableRow.append(novoTableDthree);
-//                     novoTableRow.append(novoTableDfive);
+                    novoTableRow.append(novoTableDfour);
+                    novoTableRow.append(novoTableDsix);
+                    novoTableRow.append(novoTableDone);
 
+                    novoTableRow.append(novoTableDtwo);
+                    novoTableRow.append(novoTableDthree);
+                    novoTableRow.append(novoTableDfive);
 
-//                     $("#tablebody").append(novoTableRow);
 
+                    $("#tablebody").append(novoTableRow);
 
-//                 }
 
-//             });
+                }
 
-//         }
+            });
 
+        }
 
-//     });
-//     database.ref(("/trainschedule/train " + fireTrainNumber)).set({
-//         trainName: fireName,
-//         trainDestination: fireDestination,
-//         trainFrequency: fireFreq,
-//         trainNextArrival: fireNextArrival,
-//         trainMinutesAway: fireMinutesAway,
-//         trainNumber: fireTrainNumber
 
-//     });
-// }
-// setInterval(updateFireBase, 20000);
+    });
+    database.ref(("/trainschedule/train " + fireTrainNumber)).set({
+        trainName: fireName,
+        trainDestination: fireDestination,
+        trainFrequency: fireFreq,
+        trainNextArrival: fireNextArrival,
+        trainMinutesAway: fireMinutesAway,
+        trainNumber: fireTrainNumber
+
+    });
+}
+setInterval(updateFireBase, 20000);
 
 
 
@@ -333,7 +332,6 @@ function updateData() {
 
 
     var novoTableRow = $("<tr class='row" + number + "' data-value='" + number + "'>");
-    
     var novoTableDsix = $("<td class='trainrow'>" + number + "</td>");
     var novoTableDone = $("<td class='trainrow'>" + name + "</td>");
     var novoTableDtwo = $("<td class='trainrow'>" + destination + "</td>");
@@ -352,7 +350,7 @@ function updateData() {
     novoTableRow.append(novoTableDfive);
 
 
-    
+
     database.ref(("/trainschedule/train " + number)).set({
         trainName: name,
         trainDestination: destination,
@@ -363,5 +361,6 @@ function updateData() {
 
     });
 
-$("#tablebody").append(novoTableRow);
+    $("#tablebody").append(novoTableRow);
 }
+
