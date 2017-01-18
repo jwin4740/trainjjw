@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
     <script src="https://www.gstatic.com/firebasejs/3.6.5/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
@@ -11,8 +11,11 @@
 </head>
 
 <body>
-    <h1 style="float: left;" id="header"> My Train Schedule </h1>
-    <h3 style="float: right; margin-right: 30px;"> Current Time:  <span style="color: blue;" id="headerspan"></span> </h3>
+    
+   <!--  <h3 style="float: right; margin-right: 30px;"> Current Time:  <span style="color: blue;" id="headerspan"></span> </h3> -->
+   <div class="fourthholder">
+    
+   </div>
     <div style="float: left;">
         <div>
             <div style="border: solid 2px black;" class="panel blackBg add">
@@ -43,21 +46,22 @@
             </div>
         </div>
     </div>
-    <div style="float: right; opacity: 0.9" class="col-md-5 pull-right">
-        <div class="panel panel-primary mytable">
-            <div class="panel-heading">Train Schedule</div>
-            <!-- Table -->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th> Next Arrival</th>
-                        <th> No. </th>
-                        <th> Name </th>
-                        <th> Destination </th>
-                        <th> Frequency </th>
-                        <th> Wait Time</th>
-                    </tr>
-                </thead>
+
+        <div class="mytable">
+            <h4> TRAIN SCHEDULE </h4>
+            <table>
+                <div class="theader">
+                    <thead>
+                        <tr class="tablerow">
+                            <th class="thead"> Next Arrival</th>
+                            <th class="thead"> No. </th>
+                            <th class="thead"> Name </th>
+                            <th class="thead"> Destination </th>
+                            <th class="thead"> Frequency </th>
+                            <th> Wait Time</th>
+                        </tr>
+                    </thead>
+                </div>
                 <tbody id="tablebody">
                 </tbody>
             </table>

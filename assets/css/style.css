@@ -7,33 +7,61 @@ body {
     background-size: cover;
 }
 
-.mytable {
-    max-height: 450px;
-    overflow-y: scroll;
-}
-
-#tablebody {
-    font-size: 12px;
-}
-.mytable{
-	background-color: grey;
-}
-
-.tableheader{
-	background-color: black;
-	color: white;
-}
 table {
+    padding: 2px;
     text-align: center;
-    padding: 4px;
-    
+}
+
+.mytable {
+    position: relative;
+    top: 200px;
+    float: right;
+    border: solid 2px black;
+    border-radius: 5px;
+    margin-right: 20px;
+    background-color: #6E121C;
+    opacity: 0.85;
+}
+
+.fourthholder {
+    clear: both;
+    position: relative;
+    width: 200px;
+    height: 68px;
+    top: 50px;
+    left: 850px;
+    opacity: 0.95;
+    background-image: url("../images/platformsign.jpg");
+    background-size: contain;
+}
+
+h4 {
+    text-align: left;
+    margin: 0px;
+    padding: 5px;
+    background-color: #F6BC5E;
+    color: black;
+    border-radius: 5px;
+}
+
+thead {
+    padding: 2px;
 }
 
 th {
-    text-align: center;
-    padding: 4px;
+    font-size: 15px;
+    font-weight: bolder;
+    color: #F6BC5E;
+    padding: 5px;
 }
 
-tr {
+tbody {
+    font-size: 11px;
+    font-weight: bolder;
+    color: #F6BC5E;
+}
+
+.row {
+    clear: both;
     border: solid 2px black;
 }
