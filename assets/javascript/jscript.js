@@ -258,7 +258,7 @@ function updateFireBase() {
 
     });
 }
-setInterval(updateFireBase, 20000);
+// setInterval(updateFireBase, 5000);
 
 
 
@@ -350,7 +350,7 @@ function updateData() {
     novoTableRow.append(novoTableDfive);
 
 
-
+    
     database.ref(("/trainschedule/train " + number)).set({
         trainName: name,
         trainDestination: destination,
@@ -361,6 +361,5 @@ function updateData() {
 
     });
 
-    $("#tablebody").append(novoTableRow);
+$("#tablebody").append(novoTableRow);
 }
-
