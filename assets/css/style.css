@@ -7,6 +7,90 @@ body {
     background-size: cover;
 }
 
+.timedisplaycontainer{
+    text-align: center;
+}
+
+p{
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+#headerspan{
+    margin: 5px;
+    font-size: 22px;
+    color: #F6BC5E;
+}
+.timedisplay{
+    float: left;
+    margin-left: 20px;
+    border: double 4px #F6BC5E;
+    border-radius: 5px;
+    width: 325px;
+    height: 80px;
+    background-color: #6E121C;
+    opacity: 0.8; 
+}
+.timedisplayhead{
+    margin: 5px;
+}
+
+.fourthholder {
+    clear: both;
+    position: relative;
+    width: 200px;
+    height: 68px;
+    top: 5px;
+    left: 1160px;
+    opacity: 0.95;
+    background-image: url("../images/platformsign.jpg");
+    background-size: contain;
+}
+.addtrain{
+    position: relative;
+    opacity: 0.75;
+    margin-left: 20px;
+    background-color: #F6BC5E; 
+    width: 240px;
+    top: -25px; 
+    float: left; 
+    border: solid 2px black; 
+    border-radius: 5px;
+
+}
+.fielddiv{
+    margin: 5px;
+    color: #6E121C;
+    font-weight: bolder;
+
+}
+
+::-webkit-input-placeholder { 
+    font-size: 9px;
+  color: #696969;
+}
+.fieldhead{
+    margin: 0px;
+    background-color: #6E121C;
+    padding: 5px; 
+    border-radius: 2px;
+}
+
+label{
+    font-weight: bolder;
+    font-size: 18px;
+    margin: 3px;
+}
+.field {
+    height: 25px;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 4px;
+    background-color: #F6BC5E;
+    color: #6E121C;
+    font-weight: bolder;
+    margin: 3px;
+}
 table {
     padding: 2px;
     text-align: center;
@@ -14,7 +98,7 @@ table {
 
 .mytable {
     position: relative;
-    top: 200px;
+    top: 175px;
     float: right;
     border: solid 2px black;
     border-radius: 5px;
@@ -23,17 +107,7 @@ table {
     opacity: 0.85;
 }
 
-.fourthholder {
-    clear: both;
-    position: relative;
-    width: 200px;
-    height: 68px;
-    top: 50px;
-    left: 850px;
-    opacity: 0.95;
-    background-image: url("../images/platformsign.jpg");
-    background-size: contain;
-}
+
 
 h4 {
     text-align: left;
@@ -49,14 +123,14 @@ thead {
 }
 
 th {
-    font-size: 15px;
+    font-size: 17px;
     font-weight: bolder;
     color: #F6BC5E;
     padding: 5px;
 }
 
 tbody {
-    font-size: 11px;
+    font-size: 13px;
     font-weight: bolder;
     color: #F6BC5E;
 }

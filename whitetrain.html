@@ -11,61 +11,57 @@
 </head>
 
 <body>
-    
-   <!--  <h3 style="float: right; margin-right: 30px;"> Current Time:  <span style="color: blue;" id="headerspan"></span> </h3> -->
-   <div class="fourthholder">
-    
-   </div>
-    <div style="float: left;">
-        <div>
-            <div style="border: solid 2px black;" class="panel blackBg add">
-                <div class="panel-heading formTop">
-                    <h3 class="panel-title"><strong>Add Train</strong></h3>
-                </div>
-                <div class="panel-body">
-                    <form>
-                        <div class="form-group formadd">
-                            <label for="">Number</label>
-                            <input type="number" class="form-control" placeholder="Enter Train Number..." id="trainNumber">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Name</label>
-                            <input type="text" class="form-control" placeholder="Enter Train Name..." id="trainName">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Destination</label>
-                            <input type="text" class="form-control" placeholder="Enter Destination..." id="destination">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Frequency</label>
-                            <input type="text" class="form-control" placeholder="Enter frequency in minutes..." id="frequency">
-                        </div>
-                        <button type="submit" class="btn btn-success blackBg" id="addTrain">Submit</button>
-                    </form>
-                </div>
-            </div>
+    <div class="timedisplaycontainer">
+        <div class="timedisplay">
+            <strong><p style=" color: black;" class="timedisplayhead"> CURRENT DATE/TIME</p></strong>
+            <strong><p id="headerspan"></p></strong>
         </div>
     </div>
-
-        <div class="mytable">
-            <h4> TRAIN SCHEDULE </h4>
-            <table>
-                <div class="theader">
-                    <thead>
-                        <tr class="tablerow">
-                            <th class="thead"> Next Arrival</th>
-                            <th class="thead"> No. </th>
-                            <th class="thead"> Name </th>
-                            <th class="thead"> Destination </th>
-                            <th class="thead"> Frequency </th>
-                            <th> Wait Time</th>
-                        </tr>
-                    </thead>
+    <div class="fourthholder">
+    </div>
+    <div class="addtrain">
+        <h3 class="fieldhead"><strong>ADD TRAIN </strong></h3>
+        <div class="panel-body">
+            <form>
+                <div class="fielddiv">
+                    <label for="">Number</label>
+                    <input type="text" class="field" placeholder="Enter Train Number..." id="trainNumber">
                 </div>
-                <tbody id="tablebody">
-                </tbody>
-            </table>
+                <div class="fielddiv">
+                    <label for="">Name</label>
+                    <input type="text" class="field" placeholder="Enter Train Name..." id="trainName">
+                </div>
+                <div class="fielddiv">
+                    <label for="">Destination</label>
+                    <input type="text" class="field" placeholder="Enter Destination..." id="destination">
+                </div>
+                <div class="fielddiv">
+                    <label for="">Frequency</label>
+                    <input type="text" class="field" placeholder="Enter frequency in minutes..." id="frequency">
+                </div>
+                <button style=" cursor: pointer;margin: 5px; padding: 5px; font-weight: bolder; background-color: #6E121C; border-radius: 5px;" type="submit" class="btn btn-success blackBg" id="addTrain">Submit</button>
+            </form>
         </div>
+    </div>
+    <div class="mytable">
+        <h4> TRAIN SCHEDULE </h4>
+        <table>
+            <div class="theader">
+                <thead>
+                    <tr class="tablerow">
+                        <th class="thead"> Next Arrival</th>
+                        <th class="thead"> No. </th>
+                        <th class="thead"> Name </th>
+                        <th class="thead"> Destination </th>
+                        <th class="thead"> Frequency </th>
+                        <th> Wait Time</th>
+                    </tr>
+                </thead>
+            </div>
+            <tbody id="tablebody">
+            </tbody>
+        </table>
+    </div>
     </div>
     <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
     <script src="assets/javascript/jscript.js"></script>

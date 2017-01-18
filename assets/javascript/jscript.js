@@ -21,11 +21,11 @@ var frequency = "";
 var nextArrival = "";
 var minutesAway = "";
 
-// function showTime() {
-//     var thetime = moment().format('MMMM Do YYYY, h:mm:ss a');
-//     $("#headerspan").html(thetime);
-// }
-// setInterval(showTime, 1000);
+function showTime() {
+    var thetime = moment().format('MMMM Do YYYY, h:mm:ss a');
+    $("#headerspan").html(thetime);
+}
+setInterval(showTime, 1000);
 
 
 // var trainRef = database.ref(("/trainschedule/train " + number));
