@@ -258,7 +258,7 @@ function updateFireBase() {
 
     });
 }
-setInterval(updateFireBase, 15000);
+setInterval(updateFireBase, 20000);
 
 
 

@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-image: url(../images/hogfinal.jpg);
     background-size: cover;
@@ -10,16 +14,26 @@ body {
 
 #tablebody {
     font-size: 12px;
-   
-
+}
+.mytable{
+	background-color: grey;
 }
 
+.tableheader{
+	background-color: black;
+	color: white;
+}
 table {
-	     text-align: center;
+    text-align: center;
     padding: 4px;
+    
 }
 
 th {
     text-align: center;
     padding: 4px;
+}
+
+tr {
+    border: solid 2px black;
 }
