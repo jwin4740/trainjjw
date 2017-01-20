@@ -13,13 +13,23 @@ firebase.initializeApp(config);
 
 // Get a reference to the database service
 var database = firebase.database();
-var a = "";
+
 var number = "";
 var name = "";
 var destination = "";
 var frequency = "";
 var nextArrival = "";
 var minutesAway = "";
+var min = "";
+var hour = "";
+var frequencyDisplay = "";
+var minutesAwayDisplay = "";
+var frequencyHour = "";
+var frequencyMinutes = "";
+var hourCount = "";
+var hourMinutesAway = "";
+var hourMinutes = "";
+var hourCountMin = "";
 
 function showTime() {
     var thetime = moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -28,278 +38,105 @@ function showTime() {
 setInterval(showTime, 1000);
 
 
-var trainRef = database.ref(("/trainschedule/train " + number));
 
-
-var locazione = database.ref("/trainschedule");
-locazione.once("value", function(snapshot) {
-
-    a = snapshot.numChildren();
-    console.log(a);
-
-
-
-
-    for (var i = 1; i <= a; i++) {
-        var trainRef = database.ref(("/trainschedule/train " + i));
-        trainRef.on("value", function(snap) {
-
-            // Print the initial data to the console.
-            console.log(snap.val());
-
-            // var locazione = database.ref("/trainschedule");
-            // locazione.once("value", function(snapshot) {
-
-            //  var a = snapshot.numChildren();
-            //  console.log(a);
-
-            // Change the html to reflect the initial value.
-
-            // Change the clickCounter to match the data in the database
-            if (snap.val() != null) {
-
-                var fireTrainNumber = snap.val().trainNumber;
-                var fireName = snap.val().trainName;
-                var fireDestination = snap.val().trainDestination;
-                var fireNextArrival = snap.val().trainNextArrival;
-                var fireFreq = snap.val().trainFrequency;
-                var fireMinutesAway = snap.val().trainMinutesAway;
-
-                var min = moment().minute(); //gets the current minute 
-                console.log(min);
-                fireMinutesAway = (fireFreq - (min % fireFreq));
-                var hour = moment().hour();
-                fireNextArrival = moment().add(fireMinutesAway, 'minutes').format("h:mm a");
-
-                var fireFreqDisplay = "every " + fireFreq + " minutes";
-                var fireMinutesAwayDisplay = fireMinutesAway + " min";
-                var novoTableRow = $("<tr class='row" + snap.val().trainNumber + "' data-value='" + snap.val().trainNumber + "'>");
-
-                var fireFrequencyHour = fireFreq;
-                var fireHourCount = 0;
-                var fireFrequencyMinutes;
-
-                var fireHourMinutesAway = fireMinutesAway;
-                var fireHourMinutes = "";
-                var fireHourCountMin = 0;
-
-                if (fireFreq > 59) {
-
-                    do {
-                        fireFrequencyHour = fireFrequencyHour - 60;
-                        fireHourCount++;
-                    }
-                    while (fireFrequencyHour > 59);
-
-
-                    fireFrequencyMinutes = fireFrequencyHour;
-                    fireFreqDisplay = "every " + fireHourCount + " hr " + fireFrequencyMinutes + " min";
-                }
-
-                if (fireMinutesAway > 59) {
-
-                    do {
-                        fireHourMinutesAway = fireHourMinutesAway - 60;
-                        fireHourCountMin++;
-                    }
-                    while (fireHourMinutesAway > 59);
-
-
-                    fireHourMinutes = fireHourMinutesAway;
-                    fireMinutesAwayDisplay = fireHourCountMin + " hr " + fireHourMinutes + " min";
-                }
-
-                var novoTableDsix = $("<td class='trainrow'>" + fireTrainNumber + "</td>");
-                var novoTableDone = $("<td class='trainrow'>" + fireName + "</td>");
-                var novoTableDfour = $("<td class='trainrow'>" + fireNextArrival + "</td>");
-                var novoTableDtwo = $("<td class='trainrow'>" + fireDestination + "</td>");
-                var novoTableDthree = $("<td class='trainrow'>" + fireFreqDisplay + "</td>");
-                var novoTableDfive = $("<td class='trainrow'>" + fireMinutesAwayDisplay + "</td>");
-
-
-                novoTableRow.append(novoTableDfour);
-                novoTableRow.append(novoTableDsix);
-                novoTableRow.append(novoTableDone);
-
-                novoTableRow.append(novoTableDtwo);
-                novoTableRow.append(novoTableDthree);
-                novoTableRow.append(novoTableDfive);
-
-
-                $("#tablebody").append(novoTableRow);
-            }
-
-        });
-
-    }
-
-
-
-
-});
-
-function updateFireBase() {
-
-    $(".trainrow").remove();
-
-    var locazione = database.ref("/trainschedule");
-    locazione.once("value", function(snapshot) {
-
-        a = snapshot.numChildren();
-        console.log(a);
-
-
-
-
-        for (var i = 1; i <= a; i++) {
-            var trainRef = database.ref(("/trainschedule/train " + i));
-            trainRef.on("value", function(snap) {
-
-                // Print the initial data to the console.
-                console.log(snap.val());
-
-                // var locazione = database.ref("/trainschedule");
-                // locazione.once("value", function(snapshot) {
-
-                //  var a = snapshot.numChildren();
-                //  console.log(a);
-
-                // Change the html to reflect the initial value.
-
-                // Change the clickCounter to match the data in the database
-                if (snap.val() != null) {
-
-                    var fireTrainNumber = snap.val().trainNumber;
-                    var fireName = snap.val().trainName;
-                    var fireDestination = snap.val().trainDestination;
-                    var fireNextArrival = snap.val().trainNextArrival;
-                    var fireFreq = snap.val().trainFrequency;
-                    var fireMinutesAway = snap.val().trainMinutesAway;
-
-                    var min = moment().minute(); //gets the current minute 
-                    console.log(min);
-                    fireMinutesAway = (fireFreq - (min % fireFreq));
-                    var hour = moment().hour();
-                    fireNextArrival = moment().add(fireMinutesAway, 'minutes').format("h:mm a");
-
-                    var fireFreqDisplay = "every " + fireFreq + " minutes";
-                    var fireMinutesAwayDisplay = fireMinutesAway + " min";
-                    var novoTableRow = $("<tr class='row" + snap.val().trainNumber + "' data-value='" + snap.val().trainNumber + "'>");
-
-                    var fireFrequencyHour = fireFreq;
-                    var fireHourCount = 0;
-                    var fireFrequencyMinutes;
-
-                    var fireHourMinutesAway = fireMinutesAway;
-                    var fireHourMinutes = "";
-                    var fireHourCountMin = 0;
-
-                    if (fireFreq > 59) {
-
-                        do {
-                            fireFrequencyHour = fireFrequencyHour - 60;
-                            fireHourCount++;
-                        }
-                        while (fireFrequencyHour > 59);
-
-
-                        fireFrequencyMinutes = fireFrequencyHour;
-                        fireFreqDisplay = "every " + fireHourCount + " hr " + fireFrequencyMinutes + " min";
-                    }
-
-                    if (fireMinutesAway > 59) {
-
-                        do {
-                            fireHourMinutesAway = fireHourMinutesAway - 60;
-                            fireHourCountMin++;
-                        }
-                        while (fireHourMinutesAway > 59);
-
-
-                        fireHourMinutes = fireHourMinutesAway;
-                        fireMinutesAwayDisplay = fireHourCountMin + " hr " + fireHourMinutes + " min";
-                    }
-
-                    var novoTableDsix = $("<td class='trainrow'>" + fireTrainNumber + "</td>");
-                    var novoTableDone = $("<td class='trainrow'>" + fireName + "</td>");
-                    var novoTableDfour = $("<td class='trainrow'>" + fireNextArrival + "</td>");
-                    var novoTableDtwo = $("<td class='trainrow'>" + fireDestination + "</td>");
-                    var novoTableDthree = $("<td class='trainrow'>" + fireFreqDisplay + "</td>");
-                    var novoTableDfive = $("<td class='trainrow'>" + fireMinutesAwayDisplay + "</td>");
-
-
-                    novoTableRow.append(novoTableDfour);
-                    novoTableRow.append(novoTableDsix);
-                    novoTableRow.append(novoTableDone);
-
-                    novoTableRow.append(novoTableDtwo);
-                    novoTableRow.append(novoTableDthree);
-                    novoTableRow.append(novoTableDfive);
-
-
-                    $("#tablebody").append(novoTableRow);
-
-
-                }
-
-            });
-
-        }
-
-
-    });
-    database.ref(("/trainschedule/train " + fireTrainNumber)).set({
-        trainName: fireName,
-        trainDestination: fireDestination,
-        trainFrequency: fireFreq,
-        trainNextArrival: fireNextArrival,
-        trainMinutesAway: fireMinutesAway,
-        trainNumber: fireTrainNumber
-
-    });
-}
-// setInterval(updateFireBase, 5000);
 
 
 
 
 $("#addTrain").on("click", function() {
     event.preventDefault();
-
-    updateData();
-    a++;
-
-});
-
-
-
-function updateData() {
-
-
     number = parseFloat($("#trainNumber").val());
     name = $("#trainName").val();
     destination = $("#destination").val();
     frequency = parseInt($("#frequency").val());
 
-    var min = moment().minute(); //gets the current minute 
+    min = moment().minute();
     console.log(min);
 
-
-
     minutesAway = (frequency - (min % frequency));
-    var hour = moment().hour();
+    console.log(minutesAway);
+    hour = moment().hour();
     nextArrival = moment().add(minutesAway, 'minutes').format("h:mm a");
 
-    var frequencyDisplay = "every " + frequency + " minutes";
-    var minutesAwayDisplay = minutesAway + " min";
+    frequencyDisplay = "every " + frequency + " minutes";
+    minutesAwayDisplay = minutesAway + " min";
 
-    var frequencyHour = frequency;
-    var frequencyMinutes = "";
-    var hourCount = 0;
+    frequencyHour = frequency;
+    frequencyMinutes = "";
+    hourCount = 0;
 
-    var hourMinutesAway = minutesAway;
-    var hourMinutes = "";
-    var hourCountMin = 0;
+    hourMinutesAway = minutesAway;
+    hourMinutes = "";
+    hourCountMin = 0;
+
+
+    if (frequency > 59) {
+
+        do {
+            frequencyHour = frequencyHour - 60;
+
+            hourCount++;
+        }
+        while (frequencyHour > 59);
+
+
+        frequencyMinutes = frequencyHour;
+        frequencyDisplay = "every " + hourCount + " hr " + frequencyMinutes + " min";
+    }
+
+    if (minutesAway > 59) {
+
+        do {
+            hourMinutesAway = hourMinutesAway - 60;
+            hourCountMin++;
+        }
+        while (hourMinutesAway > 59);
+
+
+        hourMinutes = hourMinutesAway;
+        minutesAwayDisplay = hourCountMin + " hr " + hourMinutes + " min";
+    }
+
+
+    database.ref(("/trainschedule")).push({
+        trainName: name,
+        trainDestination: destination,
+        trainFrequency: frequency,
+        trainNextArrival: nextArrival,
+        trainMinutesAway: minutesAway,
+        trainNumber: number
+
+    });
+
+});
+
+
+
+
+var trainRef = database.ref(("/trainschedule"));
+
+trainRef.on("child_added", function(childSnapshot) {
+    
+    number = childSnapshot.val().trainNumber;
+    name = childSnapshot.val().trainName;
+    destination = childSnapshot.val().trainDestination;
+    frequency = childSnapshot.val().trainFrequency;
+    
+    min = moment().minute();
+    console.log(min);
+    
+  minutesAway = (frequency - (min % frequency));
+    console.log(minutesAway);
+    hour = moment().hour();
+    nextArrival = moment().add(minutesAway, 'minutes').format("h:mm a");
+
+    frequencyHour = frequency;
+    frequencyMinutes = "";
+    hourCount = 0;
+
+    hourMinutesAway = minutesAway;
+    hourMinutes = "";
+    hourCountMin = 0;
 
 
     if (frequency > 59) {
@@ -331,13 +168,28 @@ function updateData() {
 
 
 
+updateDisplay(name, destination, frequency, nextArrival, minutesAway, number);
+
+}, function(errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+});
+
+
+
+
+
+
+
+
+function updateDisplay(name, destination, frequency, nextArrival, minutesAway, number) {
+
     var novoTableRow = $("<tr class='row" + number + "' data-value='" + number + "'>");
     var novoTableDsix = $("<td class='trainrow'>" + number + "</td>");
     var novoTableDone = $("<td class='trainrow'>" + name + "</td>");
     var novoTableDtwo = $("<td class='trainrow'>" + destination + "</td>");
-    var novoTableDthree = $("<td class='trainrow'>" + frequencyDisplay + "</td>");
+    var novoTableDthree = $("<td class='trainrow'>" + frequency + " minutes</td>");
     var novoTableDfour = $("<td class='trainrow'>" + nextArrival + "</td>");
-    var novoTableDfive = $("<td class='trainrow'>" + minutesAwayDisplay + "</td>");
+    var novoTableDfive = $("<td class='trainrow'>" + minutesAway + " minutes</td>");
 
     novoTableRow.append(novoTableDfour);
     novoTableRow.append(novoTableDsix);
@@ -349,17 +201,5 @@ function updateData() {
 
     novoTableRow.append(novoTableDfive);
 
-
-    
-    database.ref(("/trainschedule/train " + number)).set({
-        trainName: name,
-        trainDestination: destination,
-        trainFrequency: frequency,
-        trainNextArrival: nextArrival,
-        trainMinutesAway: minutesAway,
-        trainNumber: number
-
-    });
-
-$("#tablebody").append(novoTableRow);
+    $("#tablebody").append(novoTableRow);
 }
