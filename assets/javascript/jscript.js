@@ -39,10 +39,6 @@ setInterval(showTime, 1000);
 
 
 
-
-
-
-
 $("#addTrain").on("click", function() {
     event.preventDefault();
     number = parseFloat($("#trainNumber").val());
@@ -58,46 +54,6 @@ $("#addTrain").on("click", function() {
     hour = moment().hour();
     nextArrival = moment().add(minutesAway, 'minutes').format("h:mm a");
 
-    frequencyDisplay = "every " + frequency + " minutes";
-    minutesAwayDisplay = minutesAway + " min";
-
-    frequencyHour = frequency;
-    frequencyMinutes = "";
-    hourCount = 0;
-
-    hourMinutesAway = minutesAway;
-    hourMinutes = "";
-    hourCountMin = 0;
-
-
-    if (frequency > 59) {
-
-        do {
-            frequencyHour = frequencyHour - 60;
-
-            hourCount++;
-        }
-        while (frequencyHour > 59);
-
-
-        frequencyMinutes = frequencyHour;
-        frequencyDisplay = "every " + hourCount + " hr " + frequencyMinutes + " min";
-    }
-
-    if (minutesAway > 59) {
-
-        do {
-            hourMinutesAway = hourMinutesAway - 60;
-            hourCountMin++;
-        }
-        while (hourMinutesAway > 59);
-
-
-        hourMinutes = hourMinutesAway;
-        minutesAwayDisplay = hourCountMin + " hr " + hourMinutes + " min";
-    }
-
-
     database.ref(("/trainschedule")).push({
         trainName: name,
         trainDestination: destination,
@@ -107,79 +63,35 @@ $("#addTrain").on("click", function() {
         trainNumber: number
 
     });
-
+    $("#trainNumber").val("");
+    $("#trainName").val("");
+    $("#destination").val("");
+    $("#frequency").val("");
 });
-
-
-
 
 var trainRef = database.ref(("/trainschedule"));
 
 trainRef.on("child_added", function(childSnapshot) {
-    
+
     number = childSnapshot.val().trainNumber;
     name = childSnapshot.val().trainName;
     destination = childSnapshot.val().trainDestination;
     frequency = childSnapshot.val().trainFrequency;
-    
+
     min = moment().minute();
     console.log(min);
-    
-  minutesAway = (frequency - (min % frequency));
+
+    minutesAway = (frequency - (min % frequency));
     console.log(minutesAway);
     hour = moment().hour();
     nextArrival = moment().add(minutesAway, 'minutes').format("h:mm a");
 
-    frequencyHour = frequency;
-    frequencyMinutes = "";
-    hourCount = 0;
+    updateDisplay(name, destination, frequency, nextArrival, minutesAway, number);
 
-    hourMinutesAway = minutesAway;
-    hourMinutes = "";
-    hourCountMin = 0;
-
-
-    if (frequency > 59) {
-
-        do {
-            frequencyHour = frequencyHour - 60;
-
-            hourCount++;
-        }
-        while (frequencyHour > 59);
-
-
-        frequencyMinutes = frequencyHour;
-        frequencyDisplay = "every " + hourCount + " hr " + frequencyMinutes + " min";
-    }
-
-    if (minutesAway > 59) {
-
-        do {
-            hourMinutesAway = hourMinutesAway - 60;
-            hourCountMin++;
-        }
-        while (hourMinutesAway > 59);
-
-
-        hourMinutes = hourMinutesAway;
-        minutesAwayDisplay = hourCountMin + " hr " + hourMinutes + " min";
-    }
-
-
-
-updateDisplay(name, destination, frequency, nextArrival, minutesAway, number);
 
 }, function(errorObject) {
     console.log("Errors handled: " + errorObject.code);
 });
-
-
-
-
-
-
-
 
 function updateDisplay(name, destination, frequency, nextArrival, minutesAway, number) {
 
@@ -203,3 +115,9 @@ function updateDisplay(name, destination, frequency, nextArrival, minutesAway, n
 
     $("#tablebody").append(novoTableRow);
 }
+
+function reloadPage() {
+    location.reload();
+}
+
+setInterval(reloadPage, 120000);
